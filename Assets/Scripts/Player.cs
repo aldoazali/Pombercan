@@ -143,7 +143,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void UpdatePlayer1Movement ()
     {
-        if (Input.GetKey (KeyCode.W))
+        if (Input.GetKey (KeyCode.S))
         { //Up movement
             rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, moveSpeed);
             myTransform.rotation = Quaternion.Euler (0, 0, 0);
@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
             moveSpeed += 0.5f;
         }
 
-        if (Input.GetKey (KeyCode.A))
+        if (Input.GetKey (KeyCode.D))
         { //Left movement
             rigidBody.velocity = new Vector3 (-moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 270, 0);
@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
             moveSpeed += 0.5f;
         }
 
-        if (Input.GetKey (KeyCode.S))
+        if (Input.GetKey (KeyCode.W))
         { //Down movement
             rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, -moveSpeed);
             myTransform.rotation = Quaternion.Euler (0, 180, 0);
@@ -167,7 +167,7 @@ public class Player : MonoBehaviour
             moveSpeed += 0.5f;
         }
 
-        if (Input.GetKey (KeyCode.D))
+        if (Input.GetKey (KeyCode.A))
         { //Right movement
             rigidBody.velocity = new Vector3 (moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 90, 0);
@@ -185,28 +185,28 @@ public class Player : MonoBehaviour
     /// Updates Player 2's movement and facing rotation using the arrow keys and drops bombs using Enter or Return
     private void UpdatePlayer2Movement ()
     {
-        if (Input.GetKey (KeyCode.UpArrow))
+        if (Input.GetKey (KeyCode.DownArrow))
         { //Up movement
             rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, moveSpeed);
             myTransform.rotation = Quaternion.Euler (0, 0, 0);
             animator.SetBool ("Walking", true);
         }
 
-        if (Input.GetKey (KeyCode.LeftArrow))
+        if (Input.GetKey (KeyCode.RightArrow))
         { //Left movement
             rigidBody.velocity = new Vector3 (-moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 270, 0);
             animator.SetBool ("Walking", true);
         }
 
-        if (Input.GetKey (KeyCode.DownArrow))
+        if (Input.GetKey (KeyCode.UpArrow))
         { //Down movement
             rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, -moveSpeed);
             myTransform.rotation = Quaternion.Euler (0, 180, 0);
             animator.SetBool ("Walking", true);
         }
 
-        if (Input.GetKey (KeyCode.RightArrow))
+        if (Input.GetKey (KeyCode.LeftArrow))
         { //Right movement
             rigidBody.velocity = new Vector3 (moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 90, 0);
