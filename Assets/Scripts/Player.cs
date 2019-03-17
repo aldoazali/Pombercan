@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     [Range (1, 2)] //Enables a nifty slider in the editor
     public int playerNumber = 1;
     //Indicates what player this is: P1 or P2
-    const float baseMoveSpeed = 5f;
+    const float baseMoveSpeed = 4f;
     public float moveSpeed;
     public bool canDropBombs = true;
     //Can the player drop bombs?
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        if(moveSpeed > 10)
+        if(moveSpeed > 8)
         {
             moveSpeed = 10;
         }
@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
         }
         else 
         {
-            //mouseDirection = 0;
+            mouseDirection = 0;
         }
 
         // Mouse and keyboard is flipped because of camera position
@@ -198,7 +198,7 @@ public class Player : MonoBehaviour
             moveSpeed += 0.5f;
         }
 
-        if (canDropBombs && Input.GetKeyDown (KeyCode.Space))
+        if (canDropBombs && (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButton(0)))
         { //Drop bomb
             DropBomb ();
             mouseDirection = 0;
@@ -265,6 +265,14 @@ public class Player : MonoBehaviour
         if (other.CompareTag ("Explosion"))
         {
             Debug.Log ("Player" + playerNumber + " hit by explosion!");
+            dead = true; //  Sets the dead variable so you can keep track of the player's death.
+            globalManager.PlayerDied(playerNumber); // Notifies the global state manager that the player died.
+            Destroy(gameObject); // Destroys the player GameObject.
+        }
+
+        if (other.CompareTag("Ghost"))
+        {
+            Debug.Log("Player die by Ghost!");
             dead = true; //  Sets the dead variable so you can keep track of the player's death.
             globalManager.PlayerDied(playerNumber); // Notifies the global state manager that the player died.
             Destroy(gameObject); // Destroys the player GameObject.

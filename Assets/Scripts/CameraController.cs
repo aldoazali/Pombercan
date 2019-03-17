@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
 
     // LateUpdate is called after Update each frame
     void LateUpdate()
+
     {
         if (globalManager.getDeadPlayers() == 0)
         {
