@@ -8,7 +8,7 @@ public class Bomb : MonoBehaviour
     public LayerMask levelMask;
     private bool exploded = false;
 
-    public GameObject Player ;   
+    public GameObject Player ;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +33,6 @@ public class Bomb : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = false; // Disables the mesh renderer, making the bomb invisible.
         exploded = true;
         Destroy(gameObject, .3f); // Destroys the bomb after 0.3 seconds; this ensures all explosions will spawn before the GameObject is destroyed.
-        Player.GetComponent<Player>().bombsPerPlayer[transform.name] += 1;
     }
 
     private IEnumerator CreateExplosions(Vector3 direction)
@@ -61,13 +60,13 @@ public class Bomb : MonoBehaviour
             }
 
             // Waits for 0.05 seconds before doing the next iteration of the for loop. This makes the explosion more convincing by making it look like it's expanding outwards.
-            yield return new WaitForSeconds(.05f);
+            yield return new WaitForSeconds(.1f); //0.05
         }
     }
 
     public void OnTriggerEnter(Collider other)
     {   
-        if (!exploded && this.CompareTag("Explosion"))
+        if (!exploded && other.CompareTag("Explosion"))
         { // Checks the the bomb hasn't exploded. Checks if the trigger collider has the Explosion tag assigned.
             CancelInvoke("Explode"); // Cancel the already called Explode invocation by dropping the bomb -- if you don't do this the bomb might explode twice.
             Explode(); // Explode!

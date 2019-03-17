@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Bomb.cs" />
+    <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DestroySelf.cs" />
     <Compile Include="Assets\Scripts\DisableTriggerOnPlayerExit.cs" />
     <Compile Include="Assets\Scripts\GlobalStateManager.cs" />

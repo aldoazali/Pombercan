@@ -42,18 +42,22 @@ public class Player : MonoBehaviour
     [Range (1, 2)] //Enables a nifty slider in the editor
     public int playerNumber = 1;
     //Indicates what player this is: P1 or P2
-    public float moveSpeed = 5f;
+    const float baseMoveSpeed = 5f;
+    public float moveSpeed;
     public bool canDropBombs = true;
     //Can the player drop bombs?
     public bool canMove = true;
     //Can the player move?
-    public Dictionary<string, int> bombsPerPlayer;
-    public int bombsAllowedPerPlayer = 4;
-    //Amount of bombs the player has left to drop, gets decreased as the player
-    //drops a bomb, increases as an owned bomb explodes
+    
 
     public bool dead = false;
     //This variable is used to keep track if the player died to an explosion.
+
+    private int MaxbombsAllowedPerPlayer = 4;
+    private int bombsPerPlayer = 4;
+    //Amount of bombs the player has left to drop, gets decreased as the player drops a bomb, increases as an owned bomb explodes
+
+
 
     //Prefabs
     public GameObject bombPrefab;
@@ -63,47 +67,21 @@ public class Player : MonoBehaviour
     private Transform myTransform;
     private Animator animator;
 
-/*    // Not implemented yet
-    public void setIncreaseBombsP1() // to set amounts of bombs the player has left to drop + 1
-    {
-        bombs++;
-    }
-
-    public void setDecreaseBombsP1() // to set amounts of bombs the player has left to drop - 1
-    {
-        bombs--;
-    }*/
-    // Not implemented yet
-/*    public void setIncreaseBombsP2() // to set amounts of bombs the player has left to drop + 1
-    {
-        bombs_p2++;
-    }
-
-    public void setDecreaseBombsP2() // to set amounts of bombs the player has left to drop - 1
-    {
-        bombs_p2--;
-    } */
-
     // Use this for initialization
     void Start ()
     {
+        moveSpeed = baseMoveSpeed;
         //Cache the attached components for better performance and less typing
         rigidBody = GetComponent<Rigidbody> ();
         myTransform = transform;
         animator = myTransform.Find ("PlayerModel").GetComponent<Animator> ();
-        //bombsAllowedPerPlayer = 4; //instantitate amount of bombs
-
-        //Create the dictionary
-        bombsPerPlayer = new Dictionary<string, int>();
-
-        //This adds the bombsAllowedPerPlayer to that specific players name.
-        bombsPerPlayer.Add(transform.name, bombsAllowedPerPlayer);
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if(bombsPerPlayer[transform.name] > 0)
+        
+        if(getBombsAmount() > 0) // 
         {
             canDropBombs = true;
         }
@@ -120,6 +98,7 @@ public class Player : MonoBehaviour
 
         if (!canMove)
         { //Return if player can't move
+            moveSpeed = baseMoveSpeed;
             return;
         }
 
@@ -133,6 +112,25 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    // Not implemented yet
+    public void setIncreaseBombs() // to set amounts of bombs the player has left to drop + 1
+    {
+        if (bombsPerPlayer < MaxbombsAllowedPerPlayer)
+            bombsPerPlayer++;
+    }
+
+    public void setDecreaseBombs() // to set amounts of bombs the player has left to drop - 1
+    {
+        if (bombsPerPlayer < MaxbombsAllowedPerPlayer)
+            bombsPerPlayer--;
+    }
+
+    public int getBombsAmount()
+    {
+        return bombsPerPlayer;
+    }
+
     /// <summary>
     /// Updates Player 1's movement and facing rotation using the WASD keys and drops bombs using Space
     /// </summary>
@@ -143,6 +141,7 @@ public class Player : MonoBehaviour
             rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, moveSpeed);
             myTransform.rotation = Quaternion.Euler (0, 0, 0);
             animator.SetBool ("Walking", true);
+            //moveSpeed += 0.05f;
         }
 
         if (Input.GetKey (KeyCode.A))
@@ -150,6 +149,7 @@ public class Player : MonoBehaviour
             rigidBody.velocity = new Vector3 (-moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 270, 0);
             animator.SetBool ("Walking", true);
+            //moveSpeed += 0.05f;
         }
 
         if (Input.GetKey (KeyCode.S))
@@ -157,6 +157,7 @@ public class Player : MonoBehaviour
             rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, -moveSpeed);
             myTransform.rotation = Quaternion.Euler (0, 180, 0);
             animator.SetBool ("Walking", true);
+            //moveSpeed += 0.05f;
         }
 
         if (Input.GetKey (KeyCode.D))
@@ -164,19 +165,17 @@ public class Player : MonoBehaviour
             rigidBody.velocity = new Vector3 (moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 90, 0);
             animator.SetBool ("Walking", true);
+            //moveSpeed += 0.05f;
         }
 
         if (canDropBombs && Input.GetKeyDown (KeyCode.Space))
         { //Drop bomb
             DropBomb ();
-            bombsPerPlayer[transform.name] -= 1;
-            Debug.Log(bombsPerPlayer[transform.name]);
+            //setDecreaseBombs();
         }
     }
-
-    /// <summary>
+    
     /// Updates Player 2's movement and facing rotation using the arrow keys and drops bombs using Enter or Return
-    /// </summary>
     private void UpdatePlayer2Movement ()
     {
         if (Input.GetKey (KeyCode.UpArrow))
@@ -211,8 +210,6 @@ public class Player : MonoBehaviour
         { //Drop Bomb. For Player 2's bombs, allow both the numeric enter as the return key or players 
             //without a numpad will be unable to drop bombs
             DropBomb ();
-            bombsPerPlayer[transform.name] -= 1;
-            Debug.Log(bombsPerPlayer[transform.name]);
         }
     }
 
@@ -225,6 +222,7 @@ public class Player : MonoBehaviour
         { //Check if bomb prefab is assigned first
             //Instantiate(bombPrefab, myTransform.position, bombPrefab.transform.rotation);
             Instantiate(bombPrefab, new Vector3(Mathf.RoundToInt(myTransform.position.x), bombPrefab.transform.position.y, Mathf.RoundToInt(myTransform.position.z)), bombPrefab.transform.rotation);
+
         }
     }
 
@@ -232,10 +230,14 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag ("Explosion"))
         {
-            Debug.Log ("P" + playerNumber + " hit by explosion!");
+            Debug.Log ("Player" + playerNumber + " hit by explosion!");
             dead = true; //  Sets the dead variable so you can keep track of the player's death.
             globalManager.PlayerDied(playerNumber); // Notifies the global state manager that the player died.
             Destroy(gameObject); // Destroys the player GameObject.
+        }
+        if (other.CompareTag("Blocks"))
+        {
+            moveSpeed = baseMoveSpeed;
         }
     }
 }
