@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
     private int bombsPerPlayer = 4;
     //Amount of bombs the player has left to drop, gets decreased as the player drops a bomb, increases as an owned bomb explodes
 
-
+    private int mouseDirection; // 0 stop, 1 up, 2 down, 3 left, 4 right
 
     //Prefabs
     public GameObject bombPrefab;
@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
         rigidBody = GetComponent<Rigidbody> ();
         myTransform = transform;
         animator = myTransform.Find ("PlayerModel").GetComponent<Animator> ();
+        mouseDirection = 0;
     }
 
     // Update is called once per frame
@@ -143,7 +144,30 @@ public class Player : MonoBehaviour
     /// </summary>
     private void UpdatePlayer1Movement ()
     {
-        if (Input.GetKey (KeyCode.S))
+        // Mouse Input
+        if (Input.GetAxis("Mouse Y") > 0)
+        { //Up movement
+            mouseDirection = 1;
+        }
+        else if (Input.GetAxis("Mouse Y") < 0)
+        { //Down movement
+            mouseDirection = 2;
+        }
+        else if (Input.GetAxis("Mouse X") < 0)
+        { //Left movement
+            mouseDirection = 3;
+        }
+        else if (Input.GetAxis("Mouse X") > 0)
+        { //Right movement
+            mouseDirection = 4;
+        }
+        else 
+        {
+            //mouseDirection = 0;
+        }
+
+        // Mouse and keyboard is flipped because of camera position
+        if (Input.GetKey (KeyCode.S) || mouseDirection == 2)
         { //Up movement
             rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, moveSpeed);
             myTransform.rotation = Quaternion.Euler (0, 0, 0);
@@ -151,7 +175,7 @@ public class Player : MonoBehaviour
             moveSpeed += 0.5f;
         }
 
-        if (Input.GetKey (KeyCode.D))
+        if (Input.GetKey (KeyCode.D) || mouseDirection == 4)
         { //Left movement
             rigidBody.velocity = new Vector3 (-moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 270, 0);
@@ -159,15 +183,14 @@ public class Player : MonoBehaviour
             moveSpeed += 0.5f;
         }
 
-        if (Input.GetKey (KeyCode.W))
+        if (Input.GetKey (KeyCode.W) || mouseDirection == 1)
         { //Down movement
             rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, -moveSpeed);
             myTransform.rotation = Quaternion.Euler (0, 180, 0);
             animator.SetBool ("Walking", true);
             moveSpeed += 0.5f;
         }
-
-        if (Input.GetKey (KeyCode.A))
+        if (Input.GetKey (KeyCode.A) || mouseDirection == 3)
         { //Right movement
             rigidBody.velocity = new Vector3 (moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 90, 0);
@@ -178,8 +201,12 @@ public class Player : MonoBehaviour
         if (canDropBombs && Input.GetKeyDown (KeyCode.Space))
         { //Drop bomb
             DropBomb ();
+            mouseDirection = 0;
             //setDecreaseBombs();
         }
+
+        
+
     }
     
     /// Updates Player 2's movement and facing rotation using the arrow keys and drops bombs using Enter or Return
