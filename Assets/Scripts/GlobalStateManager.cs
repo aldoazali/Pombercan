@@ -37,6 +37,16 @@ public class GlobalStateManager : MonoBehaviour
     //private int deadPlayerNumber = -1; //  set once the first player dies, and it indicates which one it was to declare the winner.
     //public int bombsAllowedPerPlayer = 4;
 
+    public void Start()
+    {
+        deadPlayers = 0;
+    }
+
+    public int getDeadPlayers()
+    {
+        return deadPlayers;
+    }
+
 
     public void PlayerDied (int playerNumber)
     {

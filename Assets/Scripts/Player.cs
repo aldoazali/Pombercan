@@ -80,7 +80,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        
+        if(moveSpeed > 10)
+        {
+            moveSpeed = 10;
+        }
+        if(moveSpeed > 4)
+        {
+            moveSpeed -= 0.45f;
+        }
         if(getBombsAmount() > 0) // 
         {
             canDropBombs = true;
@@ -141,7 +148,7 @@ public class Player : MonoBehaviour
             rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, moveSpeed);
             myTransform.rotation = Quaternion.Euler (0, 0, 0);
             animator.SetBool ("Walking", true);
-            //moveSpeed += 0.05f;
+            moveSpeed += 0.5f;
         }
 
         if (Input.GetKey (KeyCode.A))
@@ -149,7 +156,7 @@ public class Player : MonoBehaviour
             rigidBody.velocity = new Vector3 (-moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 270, 0);
             animator.SetBool ("Walking", true);
-            //moveSpeed += 0.05f;
+            moveSpeed += 0.5f;
         }
 
         if (Input.GetKey (KeyCode.S))
@@ -157,7 +164,7 @@ public class Player : MonoBehaviour
             rigidBody.velocity = new Vector3 (rigidBody.velocity.x, rigidBody.velocity.y, -moveSpeed);
             myTransform.rotation = Quaternion.Euler (0, 180, 0);
             animator.SetBool ("Walking", true);
-            //moveSpeed += 0.05f;
+            moveSpeed += 0.5f;
         }
 
         if (Input.GetKey (KeyCode.D))
@@ -165,7 +172,7 @@ public class Player : MonoBehaviour
             rigidBody.velocity = new Vector3 (moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             myTransform.rotation = Quaternion.Euler (0, 90, 0);
             animator.SetBool ("Walking", true);
-            //moveSpeed += 0.05f;
+            moveSpeed += 0.5f;
         }
 
         if (canDropBombs && Input.GetKeyDown (KeyCode.Space))
@@ -235,8 +242,16 @@ public class Player : MonoBehaviour
             globalManager.PlayerDied(playerNumber); // Notifies the global state manager that the player died.
             Destroy(gameObject); // Destroys the player GameObject.
         }
-        if (other.CompareTag("Blocks"))
+    }
+
+    public void OnCollisionStay(Collision collision)
+    {
+        // Check if the collider we hit has a rigidbody
+        // Then apply the force
+        if (collision.rigidbody)
         {
+            //collision.rigidbody.AddForce(Vector3.up * 15);
+            Debug.Log("Player is collide!!");
             moveSpeed = baseMoveSpeed;
         }
     }
