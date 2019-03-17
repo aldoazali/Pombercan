@@ -29,8 +29,8 @@ public class Ghost : MonoBehaviour
         {
             Vector3 p = Vector3.MoveTowards(transform.position, waypoints[cur].position, ghostSpeed);
             GetComponent<Rigidbody>().MovePosition(p);
-            myTransform.rotation = Quaternion.Euler(0, 0, 0);
-            animator.SetBool("Walking", true);
+            /*myTransform.rotation = Quaternion.Euler(0, 0, 0);
+            animator.SetBool("Walking", true);*/
         }
         // Waypoint reached, select next one
         else

@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
     {
         if(moveSpeed > 8)
         {
-            moveSpeed = 10;
+            moveSpeed = 8;
         }
         if(moveSpeed > 4)
         {
