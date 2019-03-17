@@ -34,8 +34,6 @@ using System.Collections;
 public class GlobalStateManager : MonoBehaviour
 {
     private int deadPlayers = 0; // hold the amount of players that died.
-    //private int deadPlayerNumber = -1; //  set once the first player dies, and it indicates which one it was to declare the winner.
-    //public int bombsAllowedPerPlayer = 4;
 
     public void Start()
     {
@@ -48,38 +46,17 @@ public class GlobalStateManager : MonoBehaviour
     }
 
 
-    public void PlayerDied (int playerNumber)
+    public void PlayerDied ()
     {
         deadPlayers++; // Adds one dead player.
 
         if (deadPlayers == 1)
         { // If this is the first player that died.
-            //deadPlayerNumber = playerNumber; // It sets the dead player number to the player that died first.
-            Invoke("CheckPlayersDeath", .3f); // Checks if the other player also died or if just one bit the dust after 0.3 seconds.
-        }
-    }
-
-    void CheckPlayersDeath()
-    {
-        // A single player died and he's the loser.
-        if (deadPlayers == 1)
-        {
+            //Invoke("CheckPlayersDeath", .3f); // Checks if the other player also died or if just one bit the dust after 0.3 seconds.
             Debug.Log("Player has died");
-            /*   if (deadPlayerNumber == 1) // Player 1 died so Player 2 is the winner.
-               {
-                   Debug.Log("Player 2 is the winner!");
-
-               }
-               else // Player 2 died so Player 1 is the winner.
-               {
-                   Debug.Log("Player 1 is the winner!");
-               }*/
         }
-        /*else // Both players died, so it's a draw.
-        {
-            Debug.Log("The game ended in a draw!");
-        }*/
     }
+
 
     
 

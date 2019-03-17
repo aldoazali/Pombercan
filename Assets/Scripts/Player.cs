@@ -202,7 +202,7 @@ public class Player : MonoBehaviour
         { //Drop bomb
             DropBomb ();
             mouseDirection = 0;
-            //setDecreaseBombs();
+            setDecreaseBombs();
         }
 
         
@@ -266,7 +266,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log ("Player" + playerNumber + " hit by explosion!");
             dead = true; //  Sets the dead variable so you can keep track of the player's death.
-            globalManager.PlayerDied(playerNumber); // Notifies the global state manager that the player died.
+            globalManager.PlayerDied(); // Notifies the global state manager that the player died.
             Destroy(gameObject); // Destroys the player GameObject.
         }
 
@@ -274,7 +274,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Player die by Ghost!");
             dead = true; //  Sets the dead variable so you can keep track of the player's death.
-            globalManager.PlayerDied(playerNumber); // Notifies the global state manager that the player died.
+            globalManager.PlayerDied(); // Notifies the global state manager that the player died.
             Destroy(gameObject); // Destroys the player GameObject.
         }
     }

@@ -43,4 +43,13 @@ public class Ghost : MonoBehaviour
         GetComponent<Animator>().SetFloat("DirX", dir.x);
         GetComponent<Animator>().SetFloat("DirZ", dir.z); */
     }
-}
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Explosion"))
+        {
+            Destroy(gameObject); // Destroys the player GameObject.
+        }
+    }
+
+    }
