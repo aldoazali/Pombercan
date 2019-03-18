@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
 
     void UpdateScore()
     {
-        scoreText.text = "Score: " + score;
+        //scoreText.text = "Score: " + score;
     }
 
     public void AddScore(int newScoreValue)
@@ -67,8 +67,8 @@ public class GameController : MonoBehaviour
         if (deadPlayers >= 1)
         {
             //gameOver = true;
-
             Debug.Log("Player has died");
+            SceneManager.LoadScene("Over");
         }
     }
 
