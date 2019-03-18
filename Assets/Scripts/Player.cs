@@ -29,6 +29,7 @@
  */
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
 using System.Collections.Generic;
@@ -268,6 +269,7 @@ public class Player : MonoBehaviour
             dead = true; //  Sets the dead variable so you can keep track of the player's death.
             globalManager.PlayerDied(); // Notifies the global state manager that the player died.
             Destroy(gameObject); // Destroys the player GameObject.
+            SceneManager.LoadScene("Game Over");
         }
 
         if (other.CompareTag("Ghost"))
@@ -276,6 +278,7 @@ public class Player : MonoBehaviour
             dead = true; //  Sets the dead variable so you can keep track of the player's death.
             globalManager.PlayerDied(); // Notifies the global state manager that the player died.
             Destroy(gameObject); // Destroys the player GameObject.
+            SceneManager.LoadScene("Game Over");
         }
     }
 
