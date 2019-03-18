@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour
         {
             //gameOver = true;
             Debug.Log("Player has died");
-            SceneManager.LoadScene("Over");
+            SceneManager.LoadScene("Game Over");
         }
     }
 
