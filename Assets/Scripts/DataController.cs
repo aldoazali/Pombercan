@@ -12,20 +12,17 @@ public class DataController : MonoBehaviour
 
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
+        //LoadGameData();
+        //LoadPlayerProgress();
 
-        LoadGameData();
-
-        LoadPlayerProgress();
-
-        SceneManager.LoadScene("MenuScreen");
+        SceneManager.LoadScene("Main Menu");
     }
 
     public RoundData GetCurrentRoundData()
     {
         // If we wanted to return different rounds, we could do that here
         // We could store an int representing the current round index in PlayerProgress
-
         return allRoundData[0];
     }
 
