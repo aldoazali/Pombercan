@@ -5,78 +5,75 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
-    /*public SimpleObjectPool answerButtonObjectPool;
-    public Text questionText;
-    public Text scoreDisplay;
-    public Text timeRemainingDisplay;
-    public Transform answerButtonParent;
+    private int deadPlayers = 0; // hold the amount of players that died.
+    //private bool gameOver;
+   // private bool restart;
+    private int score;
 
-    public GameObject questionDisplay;
-    public GameObject roundEndDisplay;
-    
+    //Not Implemented yet
+    public int MaxbombsAllowedPerPlayer = 4;
+    public int bombsPerPlayer = 4;
 
-    private DataController dataController;
-    private RoundData currentRoundData;
-    private QuestionData[] questionPool;
+    public Text scoreText;
 
-    private bool isRoundActive = false;
-    private float timeRemaining;
-    
-    private int questionIndex;
-    private List<GameObject> answerButtonGameObjects = new List<GameObject>(); */
-
-    public Text highScoreDisplay;
-    private int playerScore;
-
-    void Start()
+    void UpdateScore()
     {
-        /*dataController = FindObjectOfType<DataController>();                              // Store a reference to the DataController so we can request the data we need for this round
-
-        currentRoundData = dataController.GetCurrentRoundData();                            // Ask the DataController for the data for the current round. At the moment, we only have one round - but we could extend this
-        questionPool = currentRoundData.questions;                                          // Take a copy of the questions so we could shuffle the pool or drop questions from it without affecting the original RoundData object
-
-        timeRemaining = currentRoundData.timeLimitInSeconds;                                // Set the time limit for this round based on the RoundData object
-        UpdateTimeRemainingDisplay();
-        playerScore = 0;
-        questionIndex = 0;
-
-        ShowQuestion();
-        isRoundActive = true; */
+        scoreText.text = "Score: " + score;
     }
 
-    void Update()
+    public void AddScore(int newScoreValue)
     {
-        /*if (isRoundActive)
+        score += newScoreValue;
+        UpdateScore();
+    }
+
+    // Not implemented yet
+    public void setIncreaseBombs() // to set amounts of bombs the player has left to drop + 1
+    {
+        if (bombsPerPlayer < MaxbombsAllowedPerPlayer)
+            bombsPerPlayer++;
+    }
+
+    public void setDecreaseBombs() // to set amounts of bombs the player has left to drop - 1
+    {
+        if (bombsPerPlayer < MaxbombsAllowedPerPlayer)
+            bombsPerPlayer--;
+    }
+
+    public int getBombsAmount()
+    {
+        return bombsPerPlayer;
+    }
+
+    public void Start()
+    {
+        //gameOver = false;
+        //restart = false;
+        score = 0;
+        deadPlayers = 0;
+        UpdateScore();
+    }
+
+    public int getDeadPlayers()
+    {
+        return deadPlayers;
+    }
+
+
+    public void PlayerDied()
+    {
+        deadPlayers++; // Adds one dead player.
+
+        if (deadPlayers >= 1)
         {
-            timeRemaining -= Time.deltaTime;                                                // If the round is active, subtract the time since Update() was last called from timeRemaining
-            UpdateTimeRemainingDisplay();
+            //gameOver = true;
 
-            if (timeRemaining <= 0f)                                                     // If timeRemaining is 0 or less, the round ends
-            {
-                EndRound();
-            }
-        } */
+            Debug.Log("Player has died");
+        }
     }
+
     
 
-    private void UpdateTimeRemainingDisplay()
-    {
-        //timeRemainingDisplay.text = Mathf.Round(timeRemaining).ToString();
-    }
-
-    public void EndRound()
-    {
-        /*isRoundActive = false;
-
-        dataController.SubmitNewPlayerScore(playerScore);
-        highScoreDisplay.text = dataController.GetHighestPlayerScore().ToString();
-
-        questionDisplay.SetActive(false);
-        roundEndDisplay.SetActive(true); */
-    }
-
-    public void ReturnToMenu()
-    {
-        SceneManager.LoadScene("Main Menu");
-    }
+    
+    
 }

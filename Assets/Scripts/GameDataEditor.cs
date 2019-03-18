@@ -6,9 +6,9 @@ using System.IO;
 public class GameDataEditor : EditorWindow
 {
 
-    public GameData gameData;
+    //public GameData gameData;
 
-    private string gameDataProjectFilePath = "/StreamingAssets/data.json";
+  /*  private string gameDataProjectFilePath = "/StreamingAssets/data.json";
 
     [MenuItem("Window/Game Data Editor")]
     static void Init()
@@ -61,6 +61,6 @@ public class GameDataEditor : EditorWindow
         string filePath = Application.dataPath + gameDataProjectFilePath;
         File.WriteAllText(filePath, dataAsJson);
 
-    }
+    }*/
 }
 

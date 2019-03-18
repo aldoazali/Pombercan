@@ -8,6 +8,8 @@ public class Ghost : MonoBehaviour
     public Transform[] waypoints;
     int current = 0;
 
+    public GameController gameController;
+
     private float ghostSpeed = 0.06f;
 
     // Start is called before the first frame update
@@ -68,6 +70,7 @@ public class Ghost : MonoBehaviour
         if (other.CompareTag("Explosion"))
         {
             Destroy(gameObject); // Destroys the player GameObject.
+            gameController.AddScore(1000);
         }
     }
 

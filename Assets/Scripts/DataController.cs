@@ -5,7 +5,7 @@ using System.IO;                                                        // The S
 
 public class DataController : MonoBehaviour
 {
-    private RoundData[] allRoundData;
+   /* private RoundData[] allRoundData;
     private PlayerProgress playerProgress;
 
     private string gameDataFileName = "data.json";
@@ -81,5 +81,5 @@ public class DataController : MonoBehaviour
     {
         // Save the value playerProgress.highestScore to PlayerPrefs, with a key of "highestScore"
         PlayerPrefs.SetInt("highestScore", playerProgress.highestScore);
-    }
+    } */
 }
