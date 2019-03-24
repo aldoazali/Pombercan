@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
+    public GameObject ghost;
     private int deadPlayers = 0; // hold the amount of players that died.
     //private bool gameOver;
    // private bool restart;
@@ -18,7 +19,7 @@ public class GameController : MonoBehaviour
 
     void UpdateScore()
     {
-        //scoreText.text = "Score: " + score;
+        scoreText.text = "Score: " + score;
     }
 
     public void AddScore(int newScoreValue)
@@ -72,8 +73,12 @@ public class GameController : MonoBehaviour
         }
     }
 
-    
 
+    public void respawnGhost(Transform ghost2)
+    {
+        Instantiate(ghost, ghost2.position, ghost2.rotation);
+    }
+    
     
     
 }

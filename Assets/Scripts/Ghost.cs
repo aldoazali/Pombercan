@@ -6,6 +6,7 @@ public class Ghost : MonoBehaviour
 {
     private Transform myTransform;
     public Transform[] waypoints;
+    private Transform startTransform;
     int current = 0;
 
     public GameController gameController;
@@ -16,6 +17,7 @@ public class Ghost : MonoBehaviour
     void Start()
     {
         myTransform = transform;
+        startTransform = transform;
     }
 
     // Update is called once per frame
@@ -69,9 +71,15 @@ public class Ghost : MonoBehaviour
     {
         if (other.CompareTag("Explosion"))
         {
+            gameController.AddScore(100);
+            Invoke("respawn", 3f);
             Destroy(gameObject); // Destroys the player GameObject.
-            gameController.AddScore(1000);
+            
         }
+    }
+    public void respawn()
+    {
+        gameController.respawnGhost(startTransform);
     }
 
     }

@@ -68,13 +68,11 @@
     <Compile Include="Assets\Scripts\DestroySelf.cs" />
     <Compile Include="Assets\Scripts\DisableTriggerOnPlayerExit.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
-    <Compile Include="Assets\Scripts\GameDataEditor.cs" />
     <Compile Include="Assets\Scripts\GameStart.cs" />
     <Compile Include="Assets\Scripts\Ghost.cs" />
     <Compile Include="Assets\Scripts\Over.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerProgress.cs" />
-    <Compile Include="Assets\Scripts\RoundData.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Aldo/Unity/Pombercan/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
